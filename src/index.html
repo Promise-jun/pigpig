@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="health">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <title>pigpig</title>
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <ui-view></ui-view>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./js/jquery-1.11.3.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/angular.js"></script>
+    <script type="text/javascript" src="./js/angular-ui-router.js"></script>
+    <script type="text/javascript">
+    var healthApp = angular.module('health', ['ui.router'])
+        .run(function($rootScope, $state, $stateParams) {
+            $rootScope.foodPrefix = "http://tnfs.tngou.net/image";
+
+            $rootScope.$state = $state; //state是我们的状态，放到了$rootScope
+            $rootScope.$stateParams = $stateParams; // stateParams是我们的路由的参数
+            // stateChangeSuccess
+            $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
+                // to be used for back button //won't work when page is reloaded.
+                $rootScope.previousState_name = fromState.name; //记录前一个路由的名称
+                $rootScope.previousState_params = fromParams; //记录前一个路由的参数
+            });
+            //back button function called from back button's ng-click="back()"
+            $rootScope.back = function(obj) {
+                //如果前一个路由的名称长度为0，就意味着没有前一个路由操作，我们就没有返回的路径
+                if ($rootScope.previousState_name.trim().length != 0) {
+                    $state.go($rootScope.previousState_name, $rootScope.previousState_params);
+
+                } else {
+                    // alert('没有可返回的页面!');
+                    $('#' + obj).popover('show');
+
+                }
+            };
+        })
+        .directive("compile", function($compile) {
+            return function(scope, element, attrs) {
+                scope.$watch(
+                    function(scope) {
+                        return scope.$eval(attrs.compile);
+                    },
+                    function(value) {
+                        element.html(value);
+                        $compile(element.contents())(scope);
+                    }
+                )
+            }
+        })
+        .filter('range', function() {
+            return function(input, total) {
+                total = parseInt(total);
+                for (var i = 1; i <= total; i++) {
+                    input.push(i);
+                }
+                return input;
+            };
+        })
+        .config(function($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+            $urlRouterProvider.otherwise('/navbar');
+            $urlMatcherFactoryProvider.caseInsensitive(true);
+            $stateProvider
+                .state('navbar', {
+                    url: '/navbar',
+                    templateUrl: './template/navbar.html',
+                    controller: 'navbarController'
+
+                })
+                .state('navbar.home', {
+                    url: '/home',
+                    templateUrl: './template/home.html',
+                    controller: 'homeController'
+                })
+
+            .state('navbar.foodList', {
+                    url: '/foodList/:id/:page',
+                    templateUrl: './template/foodList.html',
+                    controller: 'foodListController'
+                })
+                .state('navbar.foodDetail', {
+                    url: '/foodDetail/:id',
+                    templateUrl: './template/foodDetail.html',
+                    controller: 'foodDetailController'
+                })
+        })
+        .controller('navbarController', function($scope, $http) {
+            $http({
+                url: 'http://localhost/navbar.php'
+            }).then(function(res) {
+                console.log(res.data)
+                $scope.foodcategories = res.data.tngou;
+            })
+        })
+        .controller('homeController', function($scope) {
+            $scope.welcome = "欢迎来到健康大杂汇";
+        })
+        .controller('foodListController', function($scope, $stateParams, $http) {
+            $http({
+                url: 'http://localhost/foodlist.php',
+                params: {
+                    id: $stateParams.id,
+                    page: $stateParams.page
+                }
+            }).then(function(res) {
+                $scope.foodLists = res.data.tngou;
+                console.log(res.data);
+                var pageCountList = [];
+                var rows = 12;
+
+                for (var i = 1; i <= Math.ceil(res.data.total / rows); i++) {
+                    pageCountList.push(i);
+                }
+                $scope.foodCateID  =$stateParams.id;
+                $scope.foodListsPageCount = pageCountList;
+            })
+        })
+        .controller('foodDetailController', function($scope, $stateParams, $http) {
+            $http({
+                url: 'http://localhost/foodDetail.php',
+                params: {
+                    id: $stateParams.id
+                }
+            }).then(function(res) {
+                $scope.detail = res.data;
+                console.log(res.data);
+            })
+        })
+    </script>
+</body>
+
+</html>
