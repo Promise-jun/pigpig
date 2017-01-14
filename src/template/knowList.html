@@ -1,0 +1,43 @@
+	<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row" style="margin-top: 75px;" ng-repeat="knowlists in knowlist" ng-if="$index % 3 == 0">
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index].id != undefined">
+          <img class="img-circle" ng-src="{{foodPrefix}}{{knowlist[$index].img}}" style="width: 140px; height: 140px;">
+          <h2>{{knowlist[$index].title}}</h2>
+          <p>{{knowlist[$index].description| limitTo:100}}</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index+1].id != undefined"> 
+          <img class="img-circle" ng-src="{{foodPrefix}}{{knowlist[$index+1].img}}" style="width: 140px; height: 140px;">
+           <h2>{{knowlist[$index+1].title}}</h2>
+          <p>{{knowlist[$index+1].description| limitTo:100}}</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index+2].id != undefined">
+          <img class="img-circle" ng-src="{{foodPrefix}}{{knowlist[$index+2].img}}" style="width: 140px; height: 140px;">
+          <h2>{{knowlist[$index+2].title}}</h2>
+          <p>{{knowlist[$index+2].description | limitTo:100}}</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+   
+
+
+
+<!-- 分页 -->
+      <nav>
+        <ul class="pagination">
+         
+          <!-- 循环出页码， -->
+          <li ng-repeat="page in pageCountList"><a href="#/navbar/knowList/{{knowCateId}}/{{page}}">{{page}}</a></li>
+        </ul>
+      </nav>
+ </div><!-- /.container -->
