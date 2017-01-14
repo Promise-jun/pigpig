@@ -1,0 +1,39 @@
+<div class="container marketing">
+<!-- Three columns of text below the carousel -->
+<div class="row" style="margin-top: 75px;" ng-repeat="iList in issueList" ng-if="$index % 3 ==0">
+  <div class="col-lg-4" ng-if="issueList[$index].id != undefined">
+    <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{issueList[$index].img}}" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+    <h3>{{ issueList[$index].title }}</h3>
+    <p>{{ issueList[$index].description }}</p>
+    <p><a class="btn btn-default" href="#/navbar/issueDetail/{{issueList[$index].id}}" role="button">View details &raquo;</a></p>
+  </div><!-- col-lg-4 -->
+  <div class="col-lg-4" ng-if="issueList[$index+1].id != undefined">
+    <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{issueList[$index+1].img}}" style="width: 140px; height: 140px;">
+    <h3>{{ issueList[$index+1].title }}</h3>
+    <p>{{ issueList[$index+1].description }}</p>
+    <p><a class="btn btn-default" href="#/navbar/issueDetail/{{issueList[$index+1].id}}" role="button">View details &raquo;</a></p>
+  </div><!-- col-lg-4 -->
+  <div class="col-lg-4" ng-if="issueList[$index+2].id != undefined">
+    <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{issueList[$index+2].img}}" style="width: 140px; height: 140px;">
+    <h3>{{ issueList[$index+2].title }}</h3>
+    <p>{{ issueList[$index+2].description }}</p>
+    <p><a class="btn btn-default" href="#/navbar/issueDetail/{{issueList[$index+2].id}}" role="button">View details &raquo;</a></p>
+  </div><!-- col-lg-4 -->
+</div>/.row
+
+  <nav>
+    <ul class="pagination">
+      <li ng-click="showPageDown(begin)">
+        <a href="javascript:void(0)">&laquo;</a>
+      </li>
+      <li ng-repeat="page in pageCountList | limitTo:10:begin">
+        <a href="#/navbar/issueList/{{id}}/{{page}}">{{page}}</a>
+      </li>
+      <li ng-click=showPageAdd(begin)><a href="javascript:void(0)">&raquo;</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- 说明：img字段返回的是不完整的图片路径src，
+需要在前面添加【http://tnfs.tngou.net/image】或者【http://tnfs.tngou.net/img】
+前者可以在图片后面添加宽度和高度，如：http://tnfs.tngou.net/image/top/default.jpg_180x120 -->
