@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="health">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>pigpig</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- 引入index.css -->
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body role="document">
+  
+    <ui-view></ui-view>
+
+    <script src="./js/jquery-1.11.3.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/angular.js"></script>
+    <script src="./js/angular-ui-router.js"></script>
+    <script type="text/javascript">
+        var healthApp =angular.module('health',['ui.router'])
+        .run(function($rootScope, $state, $stateParams) {
+            $rootScope.drugPrefix = "http://tnfs.tngou.net/image";
+
+            $rootScope.$state = $state; //state是我们的状态，放到了$rootScope
+            $rootScope.$stateParams = $stateParams; // stateParams是我们的路由的参数
+            // stateChangeSuccess
+            $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
+                // to be used for back button //won't work when page is reloaded.
+                $rootScope.previousState_name = fromState.name; //记录前一个路由的名称
+                $rootScope.previousState_params = fromParams; //记录前一个路由的参数
+            });
+            //back button function called from back button's ng-click="back()"
+            $rootScope.back = function(obj) {
+              //如果前一个路由的名称长度为0，就意味着没有前一个路由操作，我们就没有返回的路径
+              if($rootScope.previousState_name.trim().length != 0){
+                $state.go($rootScope.previousState_name, $rootScope.previousState_params);
+                
+              }else{
+                // alert('没有可返回的页面!');
+                $('#'+obj).popover('show');
+
+              }
+            };
+        })
+        .config(function ($stateProvider,$urlRouterProvider,$urlMatcherFactoryProvider) {
+            $urlRouterProvider.otherwise('/navbar/home');//默认页
+            $urlMatcherFactoryProvider.caseInsensitive(true);//忽略大小写(不敏感匹配)
+            $stateProvider
+            .state('navbar',{//公共父页
+                  url:'/navbar',
+                  templateUrl:'./template/navbar.html',
+                  controller:'navbarController'
+            })
+            .state("navbar.home",{ //主页
+              url:'/home',
+              templateUrl:'./template/home.html',
+              controller:'homeController'
+            })
+            .state('navbar.drugList',{//药品分类-列表页
+              url:"/drugList/:id/:page",
+              templateUrl:'./template/drugList.html',
+              controller:'drugListController'
+            })
+            .state('navbar.drugDetail',{//药品详情页
+                  url:'/drugDetail/:id',
+                  templateUrl:'./template/drugDetail.html',
+                  controller:'drugDetailController'
+            })
+        })
+       .controller('navbarController',function($scope,$http){
+            $http({
+              url:'http://localhost/drugCategories.php',
+              method:'get'
+            }).then(function(respones){
+               //console.log(respones.data.tngou)
+                $scope.drugCategory = respones.data.tngou;
+            })
+        })
+        .controller('drugListController',function($scope,$http,$stateParams){
+                 /* 获取drug-list数据*/
+                $http({
+                  url:'http://localhost/druglist.php',
+                  method:'get',
+                  params:{
+                    id:$stateParams.id,
+                    page:$stateParams.page
+                  }
+                }).then(function(res){
+                  console.log(res.data.tngou);
+                  $scope.druglists=res.data.tngou;
+                  //设置分类的Id
+                  $scope.drugCateId=$stateParams.id;
+                  /*将页数放在一个数组中*/
+                  var pageCountList=[];
+                  /*rows是每页显示的记录数*/
+
+                  var rows=12;
+                  for(var i=1;i<=Math.ceil(res.data.total/rows);i++){
+                    pageCountList.push(i);
+                  }
+                  // console.log(pageCountList)
+                  $scope.pageCountList=pageCountList;
+                })
+            
+          })
+        .controller('homeController',function($scope){
+            $scope.welcome = "1+1";
+        })
+
+        
+
+
+
+    </script>
+  </body>
+</html>
+
