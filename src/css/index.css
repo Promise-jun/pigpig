@@ -1,0 +1,12 @@
+@media screen and (min-width: 800px) { /*pc端样式*/
+	#moduleMessage{
+		margin-left:43%;
+	}
+
+}
+@media screen and (max-width: 720px) { /*移动端样式*/
+	#moduleMessage{
+		margin-left:5%;
+	}
+
+}

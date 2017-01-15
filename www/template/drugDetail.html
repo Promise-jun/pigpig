@@ -1,0 +1,23 @@
+<!-- drugDetail begin  陈肖雄-->
+<div class="container marketing"  style="margin-top: 75px; padding:20px;">
+	<div class="row featurette" >
+		<div class="col-md-4">
+	      <img class="featurette-image img-responsive" ng-src="http://tnfs.tngou.net/img{{detail.img}}" alt="{{detail.keywords}}">
+	    </div>
+	    <div class="col-md-8">
+	      <h2 class="featurette-heading">{{detail.name}}</h2>
+	      <p class="lead" >{{detail.type}}</p>
+	      <p class="lead" >{{detail.description}}</p>
+    
+			<a href="javascript:void(0)"  ng-click="back('drugDetailGoBack')" id="drugDetailGoBack" 
+			tabindex="0" class="btn btn-lg btn-danger" 	role="button" data-toggle="popover" 
+			data-trigger="focus" title="返回前页" data-content="你在当前页面进行了直接刷新，找不到回去的路了！">返回前页</a>
+
+	    </div>
+	</div>
+	<div>
+		<p class="lead" ng-bind-html="detail.message"></p>
+	</div>
+
+</div>
+<!-- drugDetail end-->

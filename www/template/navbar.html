@@ -1,0 +1,87 @@
+ <!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">PigPig Studio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+       <!--  <li ><a href="#">首页</a></li> -->
+       
+        <!-- 医药查询分类 start-->
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">医药查询<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="drugCate in drugCategory">
+              <a ui-sref="navbar.drugList({id:drugCate.id,page:1})">{{drugCate.name}}</a>
+            </li>
+          </ul>
+        </li>
+         <!-- 医药查询分类 end-->
+         <!-- 健康图书分类 start-->
+      	<li class="dropdown">
+           <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">健康图书<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="booksClassifie in booksClassifies"><a ui-sref="navbar.bookslist({id:booksClassifie.id,page:1})">{{booksClassifie.name}}</a></li>
+              </ul>
+        </li>
+        <!-- 健康图书分类 end-->
+
+        <!-- 健康食品的分类 start-->
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">健康食品 <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="foodcategorie in foodcategories"><a ui-sref="navbar.foodList({id:foodcategorie.id})">{{foodcategorie.name}}</a></li>
+            </ul>
+        </li>
+
+        <!-- 健康食品的分类 end-->
+        <!-- 健康资讯的分类 start-->
+      	 <li class="dropdown">
+                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">健康资讯 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li ng-repeat="health in healthInformation"><a ui-sref="navbar.consurtList({id:health.id,page:1})">{{health.name}}</a></li>
+                </ul>
+            </li>
+        <!-- 健康资讯的分类 end-->
+      	<!-- 健康知识的分类 start-->
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">健康知识<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a ui-sref="navbar.knowList({id:knowcategory.id})" ng-repeat="knowcategory in knowcategory">{{knowcategory.name}}</a></li>
+          </ul>
+        </li>
+        <!-- 健康知识的分类 end -->
+        <!-- 健康一问的分类 start-->
+      	 <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">健康一问 
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="issueCategorie in issueCategories">
+              <a ui-sref="navbar.issueList({id:issueCategorie.id,page:1})">
+              {{ issueCategorie.name }}</a>
+            </li>
+          </ul>  
+        </li>
+       <!-- 健康一问的分类 end -->
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<!-- NAVBAR END -->
+
+<ui-view></ui-view>
+
+<!-- FOOT -->
+<div class="container">
+  <footer>
+        
+        <p>&copy;猪猪工作室技术部5A组 &middot; 总裁：俊俊 &middot; 总经理：夏小煇&middot; 副总裁：猪猪&middot; 技术总监：雄哥&middot; 罢工女王：小猴（已被开）&middot; 烟雾经理：小王</p>
+  </footer>
+</div><!-- container end -->

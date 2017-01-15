@@ -1,0 +1,38 @@
+<!-- ====作者：潘俊start================================== -->
+<div class="container marketing" style="padding:0 15px;">
+	<div class="row featurette" style="margin-top:75px;">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" ng-src="http://tnfs.tngou.net/img{{issueDetail.img}}" data-holder-rendered="true">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">{{issueDetail.title}}</h2>
+          <h6>关键词：{{issueDetail.keywords}}
+          	<span style="padding-left:10px;">{{issueDetail.time | date:"yyyy-MM-dd"}}</span>
+          </h6>
+          <p class="lead" style="text-indent: 2em;">{{issueDetail.description}}</p>
+        </div>
+        <div id="moduleMessage">
+	        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			          <h3 class="modal-title" id="myModalLabel">{{issueDetail.title}}</h3>
+			        </div>
+			        <div class="modal-body" ng-bind-html="issueDetailMessage"></div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        </div>
+		        </div>
+		    </div>
+		  </div>
+		  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		    了解更多
+		  </button>
+		  <button class="btn btn-primary btn-lg" style="background:#D82A2A;" ng-click="back('foodDetailGoBack')" id="foodDetailGoBack">
+		    返回前页
+		  </button>
+        </div>
+    </div>
+</div>
+<!-- ====作者：潘俊end================================== -->

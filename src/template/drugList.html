@@ -1,0 +1,48 @@
+<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row" style="margin-top: 75px;" ng-repeat="drug in druglists" ng-if="$index % 3 == 0">
+
+        <div class="col-lg-4" ng-if="druglists[$index].id != undefined">
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{druglists[$index].img}}" style="width: 140px; height: 140px;">
+          <h2>{{druglists[$index].name}}</h2>
+          <p>{{druglists[$index].description| limitTo:100}}</p>
+		  <p>
+		 <!--  	<a class="btn btn-default" href="#/navbar/drugDetail/{{druglists[$index].id}}" role="button">查看详情 &raquo;</a> -->
+			<a class="btn btn-default" ui-sref="navbar.drugDetail({id:druglists[$index].id})" role="button">查看详情 &raquo;</a>
+		  </p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4" ng-if="druglists[$index+1].id != undefined"> 
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{druglists[$index+1].img}}" style="width: 140px; height: 140px;">
+           <h2>{{druglists[$index+1].name}}</h2>
+          <p>{{druglists[$index+1].description| limitTo:100}}</p>
+          <p><!-- <a class="btn btn-default" href="#/navbar/drugDetail/{{druglists[$index+1].id}}" role="button">查看详情 &raquo;</a> -->
+          	<a class="btn btn-default" ui-sref="navbar.drugDetail({id:druglists[$index+1].id})" role="button">查看详情 &raquo;</a>
+          </p>
+        </div><!-- /.col-lg-4 -->
+
+        <div class="col-lg-4" ng-if="druglists[$index+2].id != undefined">
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{druglists[$index+2].img}}" style="width: 140px; height: 140px;">
+          <h2>{{druglists[$index+2].name}}</h2>
+          <p>{{druglists[$index+2].description | limitTo:100}}</p>
+          <p><a class="btn btn-default" href="#/navbar/drugDetail/{{druglists[$index+2].id}}" role="button">查看详情 &raquo;</a>
+         <!--  <a class="btn btn-default" ui-sref="navbar.drugDetail({id:druglists[$index+2].id})" role="button">查看详情 &raquo;</a> -->
+          </p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+   
+<!-- 分页 -->
+      <nav>
+	    <ul class="pagination">
+	      <li ng-click="showPageDown(begin)">
+	        <a href="javascript:void(0)">&laquo;</a>
+	      </li>
+	      <li ng-repeat="page in pageCountList | limitTo:10:begin">
+	        <a href="#/navbar/drugList/{{id}}/{{page}}">{{page}}</a>
+	      </li>
+	      <li ng-click=showPageAdd(begin)><a href="javascript:void(0)">&raquo;</a></li>
+	    </ul>
+	  </nav>
+
+ </div><!-- /.container -->

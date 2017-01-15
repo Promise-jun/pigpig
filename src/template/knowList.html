@@ -1,0 +1,47 @@
+	<div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row" style="margin-top: 75px;" ng-repeat="knowlists in knowlist" ng-if="$index % 3 == 0">
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index].id != undefined">
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{knowlist[$index].img}}" style="width: 140px; height: 140px;">
+          <h2>{{knowlist[$index].title}}</h2>
+          <p>{{knowlist[$index].description| limitTo:100}}</p>
+          <p><a role="button" class="btn btn-default"  href="#/navbar/knowDetail/{{knowlist[$index].id}}">查看详情 &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index+1].id != undefined"> 
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{knowlist[$index+1].img}}" style="width: 140px; height: 140px;">
+           <h2>{{knowlist[$index+1].title}}</h2>
+          <p>{{knowlist[$index+1].description| limitTo:100}}</p>
+          <p><a  role="button" class="btn btn-default"  href="#/navbar/knowDetail/{{knowlist[$index+1].id}}">查看详情 &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+
+
+
+        <div class="col-lg-4" ng-if="knowlist[$index+2].id != undefined">
+          <img class="img-circle" ng-src="http://tnfs.tngou.net/img{{knowlist[$index+2].img}}" style="width: 140px; height: 140px;">
+          <h2>{{knowlist[$index+2].title}}</h2>
+          <p>{{knowlist[$index+2].description | limitTo:100}}</p>
+          <p><a role="button" class="btn btn-default" href="#/navbar/knowDetail/{{knowlist[$index+2].id}}" >查看详情 &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+   
+
+<!-- 分页 -->
+ <nav>
+    <ul class="pagination">
+      <li ng-click="showPageDown(begin)">
+        <a href="javascript:void(0)">&laquo;</a>
+      </li>
+      <!-- 循环出页码， -->
+       <li ng-repeat="page in pageCountList |limitTo:10:begin"><a href="#/navbar/knowList/{{knowCateId}}/{{page}}">{{page}}</a>
+       </li>
+      <li ng-click=showPageAdd(begin)>
+        <a href="javascript:void(0)">&raquo;</a>
+      </li>
+    </ul>
+  </nav>
+ </div><!-- /.container -->
