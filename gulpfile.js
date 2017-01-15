@@ -24,14 +24,14 @@ gulp.task('copy-img',function(){
 })
 // css
 gulp.task('copy-css',function(){
-	return gulp.src('./src/styles/index.css')
+	return gulp.src('./src/styles/**')
 	// .pipe(sass())
 	// .pipe(minifyCss())
 	.pipe(gulp.dest('./www/css'))
 })
 // js
 gulp.task('copy-js',function(){
-	return gulp.src('./src/scripts/index.js')
+	return gulp.src('./src/scripts/**')
 	.pipe(named())
 	.pipe(webpack())
 	// .pipe(uglify())
@@ -47,15 +47,15 @@ gulp.task('webserver',function(){
 	gulp.src('./www')
 	.pipe(webserver({
 		livereload:false,
-		//directoryListing:true,//目录结构
-		open:true,
+		directoryListing:false,//目录结构
+		open:true
 	}));//end gulp
 })
 // watch
 gulp.task('watch',function(){
 	gulp.watch('./src/index.html',['copy-index']);
 	gulp.watch('./src/styles/index.css',['copy-css']);
-	gulp.watch('./src/template',['copy-template']);
+	gulp.watch('./src/template/**',['copy-template']);
 	gulp.watch('./src/img',['copy-img']);
 });
 // 默认监听

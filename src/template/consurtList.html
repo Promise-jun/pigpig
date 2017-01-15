@@ -1,9 +1,9 @@
 
 
-<div class="container marketing" >
+<div class="container marketing" style="margin-top: 50px;">
 
   <!-- Three columns of text below the carousel -->
-  <div class="row" style="margin-top: 75px;" ng-repeat="hel in healthList" ng-if="$index % 3 == 0">
+  <div class="row"  ng-repeat="hel in healthList" ng-if="$index % 3 == 0">
   <div class="col-lg-4" ng-if="healthList[$index].id != undefined">
     <img class="img-circle" ng-src="http://tnfs.tngou.net/image/{{healthList[$index].img}}"  alt="{{healthList[$index].keywords}}" style="width: 140px; height: 140px;">
     <h4>{{healthList[$index].title}}</h4>
@@ -33,6 +33,11 @@
 
  
 </div>
+
+
+
+
+
 
 
 
